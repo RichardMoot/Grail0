@@ -67,7 +67,7 @@ Where Word is a Prolog atom, Formula is a multimodal formula
 and Semantics is a lexical lambda term, in the formats shown
 below.
 
-Multimodal formulas are represented as follows (I is a Prolog term
+Multimodal formulas are represented as follows ("I" is a Prolog term
 representing a mode, typically an atom)
 
 atom       (any Prolog atom)
