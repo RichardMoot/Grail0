@@ -5,6 +5,10 @@ Grail is a bare-bones but flexible and robust parser/automated theorem prover
 for multimodal categorial grammars. It is designed to allow students
 and researchers to design and experiment with their grammars.
 
+On of the advantages over the more modern, efficient and interactive
+[Grail 3](https://github.com/RichardMoot/Grail) is that it produces
+natural deduction proofs.
+
 The current version of Grail 0 is based on source code developed
 by Richard Moot, Xander Schrijen and Gert Jan Verhoog.
 
