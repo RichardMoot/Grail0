@@ -76,7 +76,7 @@ Multimodal formulas are represented as follows (``I`` is a Prolog term
 representing a mode, typically an atom)
 
 Formula | Prolog Term
-------------------
+------|------------
 *atom* | any Prolog atom
 `<>`*A*      |  `dia(I,A)`
 `[]`*A*       | `box(I,A)`
