@@ -1,0 +1,50 @@
+#! /bin/bash
+
+# Run grail kernel for one sentence
+# $1 --> fragment (with path)
+# $2 --> sentence
+# $3 --> result type
+
+# Adds the location of pdflatex to path
+PATH=$PATH:/Network/Tools/sw/teTeX/bin/powerpc-apple-darwin-current/
+
+if [ "$1" ] && [ "$2" ] && [ "$3" ]
+then 
+if [ -e "$1" ]
+then
+ 
+  echo ""
+  # grep all fragment subparts
+  # add a space between /< (solves prolog tokenize error)
+  # add inputcat.pl to handle simplefied notation
+  grep := $1 > fragments/tmp_macro
+  grep \# $1 > fragments/tmp_postulates
+  grep :: $1 | sed 's/\/</\/ </g' > fragments/tmp_lex
+  grep '===>' $1 > fragments/tmp_examples
+
+  cat sources/inputcat.pl fragments/tmp_macro fragments/tmp_postulates fragments/tmp_lex fragments/tmp_examples > fragments/tmpfrag.pl
+
+  cd sources
+  ./texcleanup.sh
+
+  # echo prolog call to grail saved state
+  echo "reset_statistics(on),load_fragment(tmpfrag), tokenize(\"$2\",List), tex(List,$3)." | ./grail 2> /dev/null
+
+  rm ../fragments/tmp*
+
+  # convert proof tex file to pdf        
+  if [ -f proofs1.tex ]; then
+    pdflatex proofs1.tex > /dev/null
+  
+  # OS X specific, open pdf file
+    killall Preview 2> /dev/null
+    open proofs1.pdf
+  fi
+  echo ""
+  
+else
+    echo "..file $1 not found (enter PATH/FILENAME)"
+fi
+else
+    echo "..Usage: grail [fragment (with path)] [sentence] [type]"
+fi

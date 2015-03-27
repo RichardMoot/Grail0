@@ -1,0 +1,3 @@
+cd sources
+swipl -c install_grail.pl
+swipl -c install_fragtest.pl

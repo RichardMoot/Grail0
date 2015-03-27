@@ -1,0 +1,54 @@
+
+Structuur van de ResultTerm en de daarin opgesloten ND:
+
+result(
+	like(t,z),
+	(trillian *a (likes *a zaphod)),
+	(trillian *a (likes *a zaphod)),
+	ND-See-Below,
+	[],
+	[t, like, z],
+	4
+) 
+
+==>
+
+result(Semantics, NormalizedLabel, NormalizedLabel, ND, Con, Subst, NVAR).
+
+note: Het lijkt alsof de 2e en 3e term in result() altijd gelijk zijn
+aan elkaar (zie parse en init_db in nd.pl). dat moet uitgezocht worden.
+
+
+nd(
+	rule(dle(a),
+		(trillian *a (likes *a zaphod)),  s,
+		C(D)(B),
+		[
+			rule(lex,
+				trillian,  np,
+				B,
+				[]
+			),
+			rule(dre(a),
+				(likes *a zaphod),  (np \a s),
+				C(D),
+				[
+					rule(lex,
+						likes,  ((np \a s) /a np),
+						C,
+						[]
+					),
+					rule(lex,
+						zaphod,  np,
+						D,
+						[]
+					)
+				]
+			)
+		]
+	)
+)
+
+==>
+
+nd(rule(NDRule, LHS, RHS, Semantics, ListOfRules))

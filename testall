@@ -1,0 +1,37 @@
+#! /bin/bash
+
+# Run grail kernel for all example sentences of a fragment
+# Only for grail simplified notation
+# $1 --> fragment (with path)
+
+if [ "$1" ]
+then
+if [ -e "$1" ]
+then
+  
+  # grep all fragment subparts
+  # add a space between /< (solves prolog tokenize error)
+  # add inputcat.pl to handle simplefied notation
+  grep := $1 > fragments/tmp_macro
+  grep \# $1 > fragments/tmp_postulates
+  grep :: $1 | sed 's/\/</\/ </g' > fragments/tmp_lex
+  grep '===>' $1 > fragments/tmp_examples
+  
+  cat sources/inputcat.pl fragments/tmp_macro fragments/tmp_postulates fragments/tmp_lex fragments/tmp_examples > fragments/tmp_testfrag.pl
+  
+  cd sources
+  ./texcleanup.sh
+
+  # echo prolog call to grail saved state
+  # perform_all_tests tries to parse all example sentences
+  echo "reset_statistics(off),perform_all_tests(tmp_testfrag)." | ./fragtest
+
+  # remove temp files
+  rm ../fragments/tmp_*
+
+else
+    echo "..file $1 not found"
+fi
+else
+    echo "..Usage: testall [fragment (with path)]"
+fi
