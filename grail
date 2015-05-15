@@ -6,7 +6,7 @@
 # $3 --> result type
 
 # Adds the location of pdflatex to path
-PATH=$PATH:/usr/teTeX/bin/
+PATH=$PATH:/usr/texbin/
 
 if [ "$1" ] && [ "$2" ] && [ "$3" ]
 then 
