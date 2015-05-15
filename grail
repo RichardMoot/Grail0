@@ -6,7 +6,7 @@
 # $3 --> result type
 
 # Adds the location of pdflatex to path
-PATH=$PATH:/Network/Tools/sw/teTeX/bin/powerpc-apple-darwin-current/
+PATH=$PATH:/usr/teTeX/bin/
 
 if [ "$1" ] && [ "$2" ] && [ "$3" ]
 then 

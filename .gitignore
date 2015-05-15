@@ -1,2 +1,12 @@
+# emacs autosave files
 *~
+# test grammars/exercises
+*.pl
+# SWI Prolog saved state 
+sources/grail
+# automatically generated LaTeX files
+sources/eg*.tex
 sources/proofs1.*
+# other automatically generated files
+sources/a.out
+sources/fragtest

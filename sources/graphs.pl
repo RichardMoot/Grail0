@@ -39,11 +39,11 @@ parse_words(ListOfWords, Goal, Result) :-
 
 parse(ListOfWordsOrSyn, Goal, result(Meaning, Label, NormalizedLabel, ND, Constants, Subst, NVAR)) :-
 	init_parser(ListOfWordsOrSyn, Goal, Meaning0, Label1, [E|Es], [], TwoRules0, Hyp, Constants0, Subst, NVAR),
-	/* copy the essential graph structure, the first one is for eager reductions
+	/* copy the essential graph structure, the first one is for eager reductions */
 	/* the second for proof reconstruction */
 	copy_term(t([E|Es], Label1, TwoRules0), t([E0|Es0], Label, TwoRules)),
 	prove(Es, E, Es0, E0),
-	/* first try normalizing the partially reduced label, try reconstructing a proof
+	/* first try normalizing the partially reduced label, try reconstructing a proof */
 	/* only when this succeeds */
 	normalize(Label1, NormalizedLabel),
 	substitute_sem(Subst, Meaning0, Meaning1, NVAR, _),
