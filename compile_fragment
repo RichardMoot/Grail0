@@ -1,0 +1,35 @@
+#! /bin/bash
+
+# Run grail kernel for one sentence
+# $1 --> fragment (with path)
+
+# Adds the location of pdflatex to path
+
+if [ "$1" ]
+then 
+if [ -e "$1" ]
+then
+ 
+  echo ""
+  # grep all fragment subparts
+  # add a space between /< (solves prolog tokenize error)
+  # add inputcat.pl to handle simplefied notation
+  grep := $1 > fragments/tmp_macro
+  grep \# $1 > fragments/tmp_postulates
+  grep :: $1 | sed 's/\/</\/ </g' > fragments/tmp_lex
+  grep '===>' $1 > fragments/tmp_examples
+
+  cat sources/inputcat_te.pl fragments/tmp_macro fragments/tmp_postulates fragments/tmp_lex fragments/tmp_examples
+  cd sources
+  ./texcleanup.sh
+
+  # echo prolog call to grail saved state
+  echo "reset_statistics(on),load_fragment(tmpfrag), tokenize(\"$2\",List), tex(List,$3)." | ./grail 2> /dev/null
+
+  rm ../fragments/tmp*
+else
+    echo "..file $1 not found (enter PATH/FILENAME)"
+fi
+else
+    echo "..Usage: compile_fragment [fragment (with path)]"
+fi

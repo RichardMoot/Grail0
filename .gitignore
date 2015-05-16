@@ -4,9 +4,10 @@
 *.pl
 # SWI Prolog saved state 
 sources/grail
+sources/fragtest
 # automatically generated LaTeX files
 sources/eg*.tex
 sources/proofs1.*
+proofs1.*
 # other automatically generated files
 sources/a.out
-sources/fragtest

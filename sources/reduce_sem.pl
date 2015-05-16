@@ -35,10 +35,11 @@ reduce_sem(Term0,Term) :-
 reduce_sem(Term,Term).
 
 reduce_sem1(appl(lambda(X,T0),Y),T) :-
-     replace_sem(T0,X,Y,T).
-reduce_sem1(lambda(X,appl(F,X)),F):-
+    replace_sem(T0,X,Y,T).
+% comment out the clause below for long normal form proofs (RM)
+%reduce_sem1(lambda(X,appl(F,X)),F):-
 % toegevoegd uit de originele code (MM)
-     \+ subterm(F,X).
+%     \+ subterm(F,X).
 reduce_sem1(fst(pair(T,_)),T).
 reduce_sem1(snd(pair(_,T)),T).
 reduce_sem1(pair(fst(T),snd(T)),T).
