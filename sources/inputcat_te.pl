@@ -130,4 +130,44 @@ t2p(M>>N,bool(M1,'->',N1)):-
 t2p(-(M),not(M1)):-
         t2p(M,M1).
 
-% lex/3 excised and put into testlex.pl
+
+% start
+%
+% exports the current fragment as an separate "vanilla" Grail file, no longer dependent on any operator definition or translations
+
+start :-
+	format(':- abolish(lazy_unpack/1).~n:- abolish(lazy_dr/1).~n:- abolish(lazy_dl/1).~n:- abolish(transparent_dia/1).~n:- abolish(transparent/1).~n',[]),
+	format(':- abolish(continuous_dia/1).~n:- abolish(continuous/1).~n:- abolish(external_dia/1).~n:- abolish(external/1).~n', []),
+	format(':- abolish(postulate/3).~n:- abolish(postulate1/3).~n:- abolish(macro/2).~n:- abolish(lex/3).~n:- abolish(example/2).~2n', []),
+	format('external(_).~nexternal_dia(_).~2n', []),
+	print_continuous,
+	listing(postulate/3),
+	listing(macro/2),
+	listing(lex/3),
+	listing(example/2).
+
+print_continuous :-
+	findall(A-B, postulate(A,B,_), List),
+	all_continuous(List).
+
+all_continuous([]) :-
+	format('~2ncontinuous(_).~n', []).
+all_continuous([A-B|Rest]) :-
+	continuous(A, B),
+	all_continuous(Rest).
+
+continuous(A, B) :-
+	yield(A, ListA, []),
+	yield(B, ListB, []),
+	ListA == ListB.
+
+yield(A, Ys0, Ys) :-
+	var(A),
+	!,
+	/* workaround needed because '[]' has been designed as an operator :( */
+	Ys0 = '.'(A,Ys).
+yield(p(_,A,B)) -->
+	yield(A),
+	yield(B).
+yield(zip(_,A)) -->
+	yield(A).

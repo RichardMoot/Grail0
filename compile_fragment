@@ -3,8 +3,6 @@
 # Run grail kernel for one sentence
 # $1 --> fragment (with path)
 
-# Adds the location of pdflatex to path
-
 if [ "$1" ]
 then 
 if [ -e "$1" ]
@@ -22,9 +20,6 @@ then
   cat sources/inputcat_te.pl fragments/tmp_macro fragments/tmp_postulates fragments/tmp_lex fragments/tmp_examples
   cd sources
   ./texcleanup.sh
-
-  # echo prolog call to grail saved state
-  echo "reset_statistics(on),load_fragment(tmpfrag), tokenize(\"$2\",List), tex(List,$3)." | ./grail 2> /dev/null
 
   rm ../fragments/tmp*
 else
