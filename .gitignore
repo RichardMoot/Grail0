@@ -1,7 +1,10 @@
 # emacs autosave files
 *~
 # test grammars/exercises
-*.pl
+typeinference_ex.pl
+lg15*.pl
+frag15*.pl
+sem13*.pl
 # SWI Prolog saved state 
 sources/grail
 sources/fragtest
