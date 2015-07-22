@@ -10,12 +10,12 @@ On of the advantages over the more modern, efficient and interactive
 natural deduction proofs.
 
 The current version of Grail 0 is based on source code developed
-by Richard Moot, Xander Schrijen, Gert Jan Verhoog with additional
+by Richard Moot, Xander Schrijen and Gert Jan Verhoog, with additional
 code by Michael Moortgat.
 
 # Requirements
 
-The current distribution was last modified at 22 February 2015 and
+The current distribution was last modified at 22 July 2015 and
 has been verified to work with SWI Prolog 6.6.6. A version of
 pdflatex (or other LaTeX version) is required for the LaTeX output.
 
