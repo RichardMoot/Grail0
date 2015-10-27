@@ -229,6 +229,7 @@ write_type(dr(l,A,B),N) :-
 % NL_cl formulas
 
 write_type(dl(0,A,B),N) :- 
+	proof_transform(nl_cl),
         !, 
         write_bo(N),
         binding(A,dl(0,A,B),NA),
@@ -239,6 +240,7 @@ write_type(dl(0,A,B),N) :-
         write_bc(N).
 
 write_type(dr(0,A,B),N) :- 
+	proof_transform(nl_cl),
         !, 
         write_bo(N),
         binding(A,dl(0,A,B),NA),
@@ -250,6 +252,7 @@ write_type(dr(0,A,B),N) :-
 
 
 write_type(dr(1,A,B),N) :- 
+	proof_transform(nl_cl),
         !, 
         write_bo(N),
         binding(A,dl(0,A,B),NA),
@@ -260,6 +263,7 @@ write_type(dr(1,A,B),N) :-
         write_bc(N).
 
 write_type(dl(1,A,B),N) :- 
+	proof_transform(nl_cl),
         !, 
         write_bo(N),
         binding(A,dl(0,A,B),NA),
@@ -503,20 +507,32 @@ sem_var_name(2,z).
 
 % =
 
-rule_name(R,N) :-
+rule_name(R, N) :-
         rule_name1(R,N),
         !.
-rule_name([R|Rs],N) :-
+rule_name([R|Rs], N) :-
         !,
-        rule_list(Rs,R,N).
-rule_name(N,N). % N is a structural rule name
+        rule_list(Rs, R, N).
+rule_name(N, N). % N is a structural rule name
 
 rule_name1(lex,'Lex').
 rule_name1(uhyp,'Hyp').
 rule_name1(hyp(_),'Hyp').
+rule_name1(dle(1), '\\fatbslash E') :-
+	proof_transform(nl_cl),
+	!.
 rule_name1(dle(_),'\\bs E').
+rule_name1(dre(1), '\\fatslash E') :-
+	proof_transform(nl_cl),
+	!.
 rule_name1(dre(_),'/ E').
+rule_name1(dli(1, _), '\\fatbslash I') :-
+	proof_transform(nl_cl),
+	!.
 rule_name1(dli(_,_),'\\bs I').
+rule_name1(dri(1, _), '\\fatslash I') :-
+	proof_transform(nl_cl),
+	!.
 rule_name1(dri(_,_),'/ I').
 rule_name1(pe(_,_,_),'\\bullet E').
 rule_name1(pi(_),'\\bullet I').
