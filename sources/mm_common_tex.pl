@@ -38,7 +38,7 @@ write_label(L,P1,P2,Con) :-
        ;
         true).
 
-% =
+% = headed output
 
 write_label(p(l,A,B),N,Con) :-
         !,
@@ -59,6 +59,31 @@ write_label(p(r,A,B),N,Con) :-
         binding(B,p(I,A,B),NB),
         write_label(B,NB,Con),
         write_bc(N).
+
+% = NL_cl output
+
+write_label(p(0,A,B),N,Con) :-
+	proof_transform(nl_cl),
+        !,
+        write_bo(N),
+        binding(A,p(0,A,B),NA),
+        write_label(A,NA,Con),
+        write('\\cdot '),
+        binding(B,p(0,A,B),NB),
+        write_label(B,NB,Con),
+        write_bc(N).
+
+write_label(p(1,A,B),N,Con) :-
+	proof_transform(nl_cl),
+        !,
+        write_bo(N),
+        binding(A,p(0,A,B),NA),
+        write_label(A,NA,Con),
+        write('\\circ '),
+        binding(B,p(0,A,B),NB),
+        write_label(B,NB,Con),
+        write_bc(N).
+
 
 write_label(p(I,A,B),N,Con) :-
         !,
@@ -154,7 +179,11 @@ write_type(T0) :-
 % = write_type0(+Type)
 % write a type with outer brackets
 
-write_type(lit(X),N) :- !,write_type(X,N).
+write_type(lit(X),N) :-
+	!,
+	write_type(X,N).
+
+% headed formulas
 
 write_type(dl(r,A,B),N) :- 
         !, 
@@ -195,6 +224,52 @@ write_type(dr(l,A,B),N) :-
         binding(B,dl(I,A,B),NB),
         write_type(B,NB),
         write_bc(N).
+
+
+% NL_cl formulas
+
+write_type(dl(0,A,B),N) :- 
+        !, 
+        write_bo(N),
+        binding(A,dl(0,A,B),NA),
+        write_type(A,NA),
+        write(' \\backslash '),
+        binding(B,dl(0,A,B),NB),
+        write_type(B,NB),
+        write_bc(N).
+
+write_type(dr(0,A,B),N) :- 
+        !, 
+        write_bo(N),
+        binding(A,dl(0,A,B),NA),
+        write_type(A,NA),
+        write(' / '),
+        binding(B,dl(0,A,B),NB),
+        write_type(B,NB),
+        write_bc(N).
+
+
+write_type(dr(1,A,B),N) :- 
+        !, 
+        write_bo(N),
+        binding(A,dl(0,A,B),NA),
+        write_type(A,NA),
+        write(' \\fatslash '),
+        binding(B,dl(0,A,B),NB),
+        write_type(B,NB),
+        write_bc(N).
+
+write_type(dl(1,A,B),N) :- 
+        !, 
+        write_bo(N),
+        binding(A,dl(0,A,B),NA),
+        write_type(A,NA),
+        write(' \\fatbslash '),
+        binding(B,dl(0,A,B),NB),
+        write_type(B,NB),
+        write_bc(N).
+
+%  = general case
 
 write_type(dl(I,A,B),N) :- 
         !, 

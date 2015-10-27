@@ -106,6 +106,7 @@ generate_latex_wrapper(NumberOfIncludeStatements) :-
 	format('\\usepackage{proof}~n',[]),
 	format('\\usepackage{latexsym}~n',[]),
 	format('\\usepackage{amssymb}~n',[]),
+	format('\\usepackage{stmaryrd}~n',[]),
 	format('\\usepackage{palatino}~n',[]),
 	format('~n',[]),
 	format('\\RequirePackage[pdftex,pagebackref,pdfpagemode=none,colorlinks,%~n',[]),
