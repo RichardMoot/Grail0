@@ -31,9 +31,10 @@
 generate_output([]) :-
 	write('\nNo solutions!\n').
     
-generate_output(Results) :-
-	write_number_of_solutions(Results),
-	length(Results,N),
+generate_output([R|Rs]) :-
+	Results = [R|Rs],
+	length(Results, N),
+	write_number_of_solutions(N),
 	generate_latex_wrapper(N),                 % create proofs1.tex
 	latex_output_structures(Results, 1).       % create eg?.tex files
 
@@ -44,13 +45,14 @@ generate_output(Results) :-
 % print to the screen how many solutions have been found.
 % Added by MH
 
-write_number_of_solutions([_]) :-
-	!,
-	write('\n1 solution found.\n').
-
-write_number_of_solutions(Results) :-
-	length(Results, N),
-	format('~n~w solutions found.~n', [N]).
+write_number_of_solutions(N) :-
+   (
+        N =:= 1
+   ->			 
+	write('\n1 solution found.\n')
+   ;
+        format('~n~w solutions found.~n', [N])
+   ).
 
 % ---------------------------------------------------------------------
 % latex_output_structures(+ListOfResultTerms)
