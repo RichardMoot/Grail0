@@ -45,6 +45,7 @@ generate_output(Results) :-
 % Added by MH
 
 write_number_of_solutions([_]) :-
+	!,
 	write('\n1 solution found.\n').
 
 write_number_of_solutions(Results) :-
@@ -158,7 +159,8 @@ generate_latex_wrapper(NumberOfIncludeStatements) :-
 % create saveboxes that include the eg?.tex files
 % for generate_latex_wrapper/1
 % ---------------------------------------------------------------------
-generate_saveboxes(Total, Total).
+generate_saveboxes(Total, Total) :-
+	!.
 generate_saveboxes(CurrentIncludeStatement, Total) :-
 	NextIncludeStatement is CurrentIncludeStatement + 1,
 	generate_proofboxname(NextIncludeStatement,ProofBox),
@@ -180,7 +182,8 @@ generate_saveboxes(CurrentIncludeStatement, Total) :-
 % If there is only one input file, only one \usebox statement is
 % generated. Multiple \useboxes are separated by a \newpage statement.
 % ---------------------------------------------------------------------
-generate_useboxes(Total, Total).
+generate_useboxes(Total, Total) :-
+	!.
 generate_useboxes(CurrentIncludeStatement, Total) :-
 	NextIncludeStatement is CurrentIncludeStatement + 1,
 	generate_proofboxname(NextIncludeStatement,ProofBox),
@@ -194,6 +197,7 @@ generate_useboxes(CurrentIncludeStatement, Total) :-
 % ---------------------------------------------------------------------
 generate_lettercodes(M,Result) :-
 	M =< 26,
+	!,
 	ResultCode is M + 96,
 	atom_codes(Result,[ResultCode]).
 

@@ -250,8 +250,8 @@ select_conj(neg(B,V,S,P0,P1),vertex(N,As,Ps),
        duo_select(pos(B,V,S,P2,P3),
                   pos(B,W,S1,P2,P3),[A|As0],As,[C|Cs0],Cs),
        update_statistics('total links'),
-       P0=P2,
-       P1=P3,
+       P0 = P2,
+       P1 = P3,
        update_statistics('plan links').
 
 % ============================================================
@@ -259,7 +259,7 @@ select_conj(neg(B,V,S,P0,P1),vertex(N,As,Ps),
 % ============================================================
 
 
-% = reduce_graph(+OldGraph,-ReducedGraph)
+% = reduce_graph(+OldGraph, -ReducedGraph)
 % 
 % the graph is reduced according to Danos' graph contraction
 % condition. If a vertex N is found from which both destinations
@@ -267,14 +267,14 @@ select_conj(neg(B,V,S,P0,P1),vertex(N,As,Ps),
 % are identified. This proceeds until no more reductions can be
 % performed. The final graph is checked for connectedness.
 
-reduce_graph(G0,G) :-
-        select(vertex(N,As,Ps0),G0,G1),
-        select(M-M,Ps0,Ps),
+reduce_graph(G0, G) :-
+        select(vertex(N,As,Ps0), G0, G1),
+        select(M-M, Ps0, Ps),
         !,
-        select(vertex(M,Bs,Qs),G1,G2),
-        merge_vertices(vertex(N,As,Ps),vertex(M,Bs,Qs),G2,G3),
-        reduce_graph(G3,G).
-reduce_graph(G,G) :-
+        select(vertex(M,Bs,Qs), G1, G2),
+        merge_vertices(vertex(N,As,Ps), vertex(M,Bs,Qs), G2, G3),
+        reduce_graph(G3, G).
+reduce_graph(G, G) :-
         connected(G).
 
 
@@ -284,33 +284,34 @@ reduce_graph(G,G) :-
 % id of Vertex1 and all references to the id of Vertex2 are replaced
 % by references to Vertex1.
 
-merge_vertices(vertex(N,As,Ps),vertex(M,Bs,Qs),G0,[vertex(N,Cs,Rs)|G]) :-
-      append(Bs,As,Cs),
-      append(Qs,Ps,Rs),
-      replace_edges(G0,M,N,G).            
+merge_vertices(vertex(N,As,Ps), vertex(M,Bs,Qs), G0, [vertex(N,Cs,Rs)|G]) :-
+      append(Bs, As, Cs),
+      append(Qs, Ps, Rs),
+      replace_edges(G0, M, N, G).            
 
 % = replace_edges(+OldGraph,VertexId1,VertexId2,-NewGraph)
 %
 % All references to VertexId1 in OldGraph are replaced by references
 % to VertexId2 in NewGraph.
 
-replace_edges([],_,_,[]).
-replace_edges([vertex(N,As,Ps)|Ls],X,Y,[vertex(N,As,Qs)|Ms]) :-
-       replace_edges1(Ps,X,Y,Qs),
-       replace_edges(Ls,X,Y,Ms).
+replace_edges([], _, _, []).
+replace_edges([vertex(N,As,Ps)|Ls], X, Y, [vertex(N,As,Qs)|Ms]) :-
+       replace_edges1(Ps, X, Y, Qs),
+       replace_edges(Ls, X, Y, Ms).
 
-replace_edges1([],_,_,[]).
-replace_edges1([P1-P2|Ps],X,Y,[Q1-Q2|Qs]) :-
-        replace_vertex(P1,X,Y,Q1),
-        replace_vertex(P2,X,Y,Q2),
-        replace_edges1(Ps,X,Y,Qs).
+replace_edges1([], _, _, []).
+replace_edges1([P1-P2|Ps], X, Y, [Q1-Q2|Qs]) :-
+        replace_vertex(P1, X, Y, Q1),
+        replace_vertex(P2, X, Y, Q2),
+        replace_edges1(Ps, X, Y, Qs).
 
-replace_vertex(V,X,Y,W) :-      
+replace_vertex(V, X, Y, W) :-      
      ( 
-       V=X ->
-       W=Y
+	V = X
+      ->
+        W = Y
      ;
-       W=V
+        W = V
      ).
 
 % = connected(+Graph)
@@ -346,10 +347,10 @@ connected1([]).
 %   will produce a cycle unless they are on different branches
 %   of a par link.
 
-cyclic(E1,E2,G0) :-
-      select(A,[E1,E2|G0],G1),
-      ancestor(A,E1,G1,_,Path1,[]),
-      ancestor(A,E2,G1,_,Path2,[]),
+cyclic(E1, E2, G0) :-
+      select(A, [E1,E2|G0], G1),
+      ancestor(A, E1, G1, _, Path1, []),
+      ancestor(A, E2, G1, _, Path2, []),
       !,
       \+ branches(Path1,Path2).
 
@@ -368,12 +369,12 @@ branches([X|Xs],[Y|Ys]) :-
       branches(Xs,Ys)
   ).
 
-ancestor(vertex(N,_,Ps),vertex(M,_,Rs),G0,G,L0,L) :-
-      ( N=M,
-        L=L0
+ancestor(vertex(N,_,Ps), vertex(M,_,Rs), G0, G, L0, L) :-
+      ( N = M,
+        L = L0
       ;
-        Ps=[P1-P2|Ps0],
-       (  select(vertex(P1,_,Qs),G0,G1),
+        Ps = [P1-P2|Ps0],
+       (  select(vertex(P1,_,Qs), G0, G1),
           L0=[l(P1-P2)|L1],
           ancestor(vertex(P1,_,Qs),vertex(M,_,Rs),G1,G,L1,L)
        ;
