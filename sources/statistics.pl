@@ -94,29 +94,31 @@ write_statistics :-
 
 write_statistics :-
      format('~n== statistics ==~2n',[]),
-	 statistics(runtime,[T|_]),
+     statistics(runtime,[T|_]),
      statistics:'start time'(T0),
      Time is (T-T0)*0.001,
      format('CPU Time used : ~p~n',[Time]),
      statistics(garbage_collection,[NGC1,Bytes1,GCTime1,_]),
      statistics:'garbage collection'([NGC0,Bytes0,GCTime0,_]),
-     NGC is NGC1-NGC0,
-    (NGC = 0 ->
+     NGC is NGC1 - NGC0,
+ (
+     NGC =:= 0
+ ->
       true
-    ;
+ ;
       KBytes is (Bytes1-Bytes0) // 1024,
       GCTime is (GCTime1-GCTime0)*0.001,
       format('Garbage coll. : ~D (~D Kb, ~p sec)~n',[NGC,KBytes,GCTime])
-    ),
+ ),
      statistics:'search nodes'(NOD),
      format('Label count   : ~D~n',[NOD]),
      statistics:'total links'(TL),
-	 statistics:'plan links'(PL),
-	 statistics:'acc links'(ACC),
+     statistics:'plan links'(PL),
+     statistics:'acc links'(ACC),
      statistics:'lab links'(LAB),
-     DifPl is TL-PL,
-     Dif1 is PL-ACC,
-     Dif2 is ACC-LAB,
+     DifPl is TL - PL,
+     Dif1 is PL - ACC,
+     Dif2 is ACC - LAB,
      calculate_tabs([TL,PL,ACC,LAB],[TTL,TPL,TACC,TLAB]),
      calculate_tabs([DifPl,Dif1,Dif2],[TDifPl,TDif1,TDif2]),
      write('Total links   : '),tab(TTL),format('~D~n',[TL]),
@@ -126,7 +128,7 @@ write_statistics :-
                                tab(TDif1),format('(~D)~n',[Dif1]),
      write('Label links   : '),tab(TLAB),format('~D ',[LAB]),
                                tab(TDif2),format('(~D)~n',[Dif2]),
-	reset_statistics(on).
+			       reset_statistics(on).
 
 
 % Auxilary; returns predicate-in-module for statistic name

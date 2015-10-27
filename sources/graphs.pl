@@ -51,9 +51,11 @@ parse(ListOfWordsOrSyn, Goal, result(Meaning, Label, NormalizedLabel, ND, Consta
 	normalize(Label, NormalizedLabel, OneRules, []),
 	first_nd(Hyp, OneRules, TwoRules, Constants0, Constants, ND0),
 	eta_reduce(ND0, ND1),
-	collapse(ND1, ND),
-	write_statistics.
-
+	collapse(ND1, ND).
+%	write_statistics.
+parse(_, _, _) :-
+	write_statistics,
+	fail.
 
 % ---------------------------------------------------------------------
 % init_parser(ListOfWords, Goal, Semantics, Label,
