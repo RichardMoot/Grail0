@@ -80,14 +80,6 @@ write_label(zip(I,A),_,Con) :-
         write_mode(I),
         write('}').
 
-write_label(zip(I,A),_,Con) :-
-        !,
-        write('\\langle '),
-        write_label(A,1,Con),
-        write('\\rangle^{'),
-        write_mode(I),
-        write('}').
-
 write_label(l(J,D),_,Con) :-
         !,
         member_check(cf(l(J,D),_,'$VAR'(N)),Con),
