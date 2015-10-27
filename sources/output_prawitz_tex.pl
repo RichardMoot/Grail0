@@ -29,10 +29,10 @@
 % ---------------------------------------------------------------------
 
 generate_output([]) :-
-    write('\nNo solutions!\n').
+	write('\nNo solutions!\n').
     
 generate_output(Results) :-
-    write_number_of_solutions(Results),
+	write_number_of_solutions(Results),
 	length(Results,N),
 	generate_latex_wrapper(N),                 % create proofs1.tex
 	latex_output_structures(Results, 1).       % create eg?.tex files
@@ -49,7 +49,7 @@ write_number_of_solutions([_]) :-
 
 write_number_of_solutions(Results) :-
 	length(Results, N),
-    format('~n~w solutions found.~n', [N]).
+	format('~n~w solutions found.~n', [N]).
 
 % ---------------------------------------------------------------------
 % latex_output_structures(+ListOfResultTerms)
@@ -74,7 +74,7 @@ latex_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV) :-
 	telling(OldStream),
 	texfile_name(NewStream, CurrentSolutionIndex),
 	tell(NewStream),
-    latex_nd_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV),
+	latex_nd_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV),
    	told,
 	tell(OldStream).
 
@@ -275,7 +275,8 @@ write_nd([],Name,A,S,Sem,Con,Subst,NV,Tab0) :-
         hypo_scope(yes) ->
         write(' \\bo ')
        ;
-        true),
+        true
+       ),
         write_label(A,'',' \\vdash ',Con),
         write_sem(Sem,'',' : ',Subst,NV),
         write_type(S),

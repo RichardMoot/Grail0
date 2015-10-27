@@ -17,11 +17,11 @@
 % ---------------------------------------------------------------------
 
 :- module(common_tex,[write_label/4,
-					  write_type/1,
-					  write_sem/1,
-					  write_sem/5,
-					  rule_name/2,
-					  rule_discharges/2]).
+		      write_type/1,
+		      write_sem/1,
+		      write_sem/5,
+		      rule_name/2,
+		      rule_discharges/2]).
 
 :- use_module(compatibility).
 :- (prolog_vendor(sics) -> use_module(library(lists), [append/3]) ; true).
@@ -71,6 +71,14 @@ write_label(p(I,A,B),N,Con) :-
         binding(B,p(I,A,B),NB),
         write_label(B,NB,Con),
         write_bc(N).
+
+write_label(zip(I,A),_,Con) :-
+        !,
+        write('\\langle '),
+        write_label(A,1,Con),
+        write('\\rangle^{'),
+        write_mode(I),
+        write('}').
 
 write_label(zip(I,A),_,Con) :-
         !,

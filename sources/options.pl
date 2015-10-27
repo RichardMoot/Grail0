@@ -29,7 +29,8 @@
 		  output_sr/1,
 		  collapse_sr/2,
 		  boring_rule/1,
-		  logical_rule/1]).
+		  logical_rule/1,
+		  proof_transform/1]).
 
 
 % ---------------------------------------------------------------------
@@ -38,6 +39,8 @@
 
 %%% MM: allows for compact typesetting of lexical assumptions
 %%% cf output_prawitz_tex
+
+proof_transform(nl_cl).
 
 compact_lex(yes).
 
