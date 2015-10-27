@@ -40,23 +40,19 @@ postulate(p(1,A,p(0,p(0,x-'C',B),C)), p(0,p(1,A,B),C), 'C').
 
 % = lazy evaluation
 
-lazy_dl(1).
+lazy_dl(_).
+lazy_dr(_).
+
 
 % = transparency
 
-transparent(0).
-transparent(1).
-transparent(2).
+transparent('$NONE').
 
-transparent_dia(i).
-transparent_dia(l).
-transparent_dia(p).
-transparent_dia(r).
-transparent_dia(t).
+transparent_dia('$NONE').
 
 % = continuity
 
-continuous(2).
+continuous('$NONE').
 
 continuous_dia(_).
 
@@ -104,6 +100,7 @@ lex(mathematician, n, mathematician).
 lex(schoolboy, n, schoolboy).
 lex(girl, n, girl).
 lex(author, n, author).
+lex(waiter, n, waiter).
 lex(book, n, book).
 lex(authors, n, authors).
 lex(books, n, books).
@@ -115,6 +112,7 @@ lex(needs, dr(0,iv,dr(0,s,dl(0,np,s))), needs).
 lex(likes, tv, likes).
 lex(hates, tv, hates).
 lex(wrote, tv, wrote).
+lex(served, tv, serve).
 lex(read, tv, read).
 lex(the, dr(0,np,n), lambda(A,quant(iota,B,appl(A,B)))).
 lex(a, det, lambda(A,lambda(B,quant(exists,C,bool(appl(A,C),&,appl(B,C)))))).
@@ -140,3 +138,4 @@ lex(is_missing, dl(0,dr(0,s,iv),s), missing).
 
 example("Everyone loves somebody.", s).
 example("Everyone read the same book.", s).
+example("The same waiter served everyone.", s).
