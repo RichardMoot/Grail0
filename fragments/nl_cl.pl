@@ -81,6 +81,7 @@ macro(iv, dl(0,np,s)).
 macro(vp, dl(0,np,s)).
 macro(tv, dr(0,iv,np)).
 macro(gq, q(np,s,s)).
+macro(para(A,B,C), dia(i,dr(1,dl(1,box(i,B),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
 
 % ============================================================
 % Lexicon
@@ -88,7 +89,8 @@ macro(gq, q(np,s,s)).
 
 % = lex(Pros,Formula,Sem)
 
-lex(same, q(adj,vp,vp), same).
+lex(same, para(adj,np,s), same).
+%lex(same, q(adj,vp,vp), same).
 lex(who, relpro, lambda(A,lambda(B,lambda(C,bool(appl(A,C),&,appl(B,C)))))).
 lex(whom, q(np,dr(0,s,dl(0,np,s)),dr(0,rel,dl(0,bang(p,np),s))), lambda(A,lambda(B,lambda(C,lambda(D,bool(appl(C,D),&,appl(appl(A,D),lambda(E,appl(B,E))))))))).
 lex(whom, relpro(pp), lambda(A,lambda(B,lambda(C,lambda(D,bool(appl(C,D),&,appl(B,appl(A,D)))))))).
