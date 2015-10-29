@@ -46,7 +46,7 @@ lazy_dr(_).
 
 % = transparency
 
-transparent('$NONE').
+transparent(0).
 
 transparent_dia('$NONE').
 
@@ -81,7 +81,10 @@ macro(iv, dl(0,np,s)).
 macro(vp, dl(0,np,s)).
 macro(tv, dr(0,iv,np)).
 macro(gq, q(np,s,s)).
-macro(para(A,B,C), dia(i,dr(1,dl(1,box(i,B),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
+macro(para(A,B,C),  dia(i,dr(1,dl(1,box(i,B),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
+macro(exp(A,B), para(A,B,s)).  % definition (246) from p. 144 defining A^B 
+macro(para2(A,B,C), dia(i,dr(1,dl(1,box(i,dia(i,B)),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
+macro(exp2(A,B), para2(A,B,s)).  % definition (246) from p. 144 defining A^B 
 
 % ============================================================
 % Lexicon
@@ -89,7 +92,9 @@ macro(para(A,B,C), dia(i,dr(1,dl(1,box(i,B),C),dl(1,box(i,A),dl(1,box(i,B),C))))
 
 % = lex(Pros,Formula,Sem)
 
-lex(same, para(adj,np,s), same).
+lex(he, exp(np,np), lambda(K,lambda(X,appl(appl(K,X),X)))). % p. 144
+lex(did, exp2(vp,vp),  lambda(K,lambda(X,appl(appl(K,X),X)))).
+lex(same, para(adj,np,s), lambda(F,lambda(X,quant(exists,F1,quant(forall,Y,bool(bool(Y,<,X),->,appl(F,appl(F1,Y)))))))).
 %lex(same, q(adj,vp,vp), same).
 lex(who, relpro, lambda(A,lambda(B,lambda(C,bool(appl(A,C),&,appl(B,C)))))).
 lex(whom, q(np,dr(0,s,dl(0,np,s)),dr(0,rel,dl(0,bang(p,np),s))), lambda(A,lambda(B,lambda(C,lambda(D,bool(appl(C,D),&,appl(appl(A,D),lambda(E,appl(B,E))))))))).
@@ -97,6 +102,8 @@ lex(whom, relpro(pp), lambda(A,lambda(B,lambda(C,lambda(D,bool(appl(C,D),&,appl(
 lex(ehh, bang(p,dr(0,s,s)), lambda(A,A)).
 lex(john, np, john).
 lex(fred, np, fred).
+lex(bill, np, bill).
+lex(or, dr(0,dl(0,s,s),s), lambda(S2,lambda(S1,bool(S1,\/,S2)))).
 lex(tlg, np, through_the_looking_glass).
 lex(mathematician, n, mathematician).
 lex(schoolboy, n, schoolboy).
@@ -110,8 +117,10 @@ lex(talks, dr(0,iv,pp), talks).
 lex(to, dr(0,pp,np), to).
 lex(thinks, dr(0,iv,s), thinks).
 lex(believes, dr(0,iv,s), believes).
+lex(said, dr(0,iv,s), say).
 lex(needs, dr(0,iv,dr(0,s,dl(0,np,s))), needs).
 lex(likes, tv, likes).
+lex(loves, tv, loves).
 lex(hates, tv, hates).
 lex(wrote, tv, wrote).
 lex(served, tv, serve).
@@ -141,3 +150,6 @@ lex(is_missing, dl(0,dr(0,s,iv),s), missing).
 example("Everyone loves somebody.", s).
 example("Everyone read the same book.", s).
 example("The same waiter served everyone.", s).
+example("Everyone said he left.", s).
+% doesn't work
+example("John left or Bill did.", s).

@@ -1,5 +1,5 @@
 
-# The Grail Theorem Prover
+# The Grail0 Theorem Prover
 
 Grail is a bare-bones but flexible and robust parser/automated theorem prover
 for multimodal categorial grammars. It is designed to allow students
