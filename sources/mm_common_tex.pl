@@ -28,6 +28,10 @@
 
 :- use_module([auxiliaries,fragments,reduce_sem,options]).
 
+% = specify the LaTeX command (without preceding `\') used to output semantic constants
+
+const_style_sem(mathrm).
+
 % = write_label
 
 write_label(L,P1,P2,Con) :-
@@ -491,7 +495,8 @@ write_sem('$VAR'(N),_) :-
         format('~w_{~w}',[Name,I]).
 
 write_sem(Const,_) :-
-        write('\\mbox{\\bf '),
+	const_style_sem(Style),
+        format('\\~w{', [Style]),
        (atom(Const) ->
         write_atom(Const)
        ;
