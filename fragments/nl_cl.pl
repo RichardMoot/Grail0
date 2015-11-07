@@ -83,7 +83,7 @@ macro(tv, dr(0,iv,np)).
 macro(gq, q(np,s,s)).
 macro(para(A,B,C),  dia(i,dr(1,dl(1,box(i,B),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
 macro(exp(A,B), para(A,B,s)).  % definition (246) from p. 144 defining A^B 
-macro(para2(A,B,C), dia(i,dr(1,dl(1,box(i,dia(i,B)),C),dl(1,box(i,A),dl(1,box(i,B),C))))).
+macro(para2(A,B,C), dia(i,dr(1,dl(1,B,C),dl(1,box(i,A),dl(1,box(i,B),C))))).
 macro(exp2(A,B), para2(A,B,s)).  % definition (246) from p. 144 defining A^B 
 
 % ============================================================
