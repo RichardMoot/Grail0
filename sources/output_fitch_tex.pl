@@ -81,12 +81,13 @@ texfile_name(FileName, SolutionIndex) :-
 % ---------------------------------------------------------------------
 % generate_latex_wrapper(+NumberOfInputStatements)
 %
-% Generates the file 'proofs1.tex' containing NumberOfInputStatements
+% Generates the file (default 'proofs1.tex') containing NumberOfInputStatements
 % \input statements for eg?.tex files.
 % ---------------------------------------------------------------------
 generate_latex_wrapper(NumberOfInputStatements) :-
 	telling(Stream),
-	tell('proofs1.tex'),
+	latex_output_file(TexFile),
+	tell(TexFile),
 	format('\\documentclass[11pt]{article}~n',[]),
 	format('\\usepackage{calc}~n',[]),
 	format('\\usepackage{ifthen}~n',[]),

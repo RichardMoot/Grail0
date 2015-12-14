@@ -77,12 +77,13 @@ texfile_name(FileName, SolutionIndex) :-
 % ---------------------------------------------------------------------
 % generate_latex_wrapper(+NumberOfIncludeStatements)
 %
-% Generates the file 'proofs1.tex' containing NumberOfIncludeStatements
+% Generates the file (default 'proofs1.tex') containing NumberOfIncludeStatements
 % \input statements for eg?.tex files.
 % ---------------------------------------------------------------------
 generate_latex_wrapper(NumberOfIncludeStatements) :-
 	telling(Stream),
-	tell('proofs1.tex'),
+	latex_output_file(TexFile),
+	tell(TexFile),
 	format('\\documentclass[11pt]{article}~n',[]),
 	format('\\usepackage{calc}~n',[]),
 	format('\\usepackage{ifthen}~n',[]),
