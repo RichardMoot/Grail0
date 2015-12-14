@@ -87,10 +87,12 @@ latex_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV) :-
 % NOTE: returns unexpected results when SolutionIndex > 9 !!
 % ---------------------------------------------------------------------
 texfile_name(FileName, SolutionIndex) :-
+	latex_output_directory(Dir),
 	atom_codes(eg, EgCodes),
 	number_codes(SolutionIndex, IndexCodes),
 	append(EgCodes, IndexCodes, AtomCodes), atom_codes(ResultWithoutExtension, AtomCodes),
-	atom_concat(ResultWithoutExtension,'.tex',FileName).
+	atom_concat(ResultWithoutExtension,'.tex',BaseName),
+	atom_concat(Dir,BaseName,FileName).
 
 
 
@@ -102,7 +104,9 @@ texfile_name(FileName, SolutionIndex) :-
 % ---------------------------------------------------------------------
 generate_latex_wrapper(NumberOfIncludeStatements) :-
 	telling(Stream),
-	latex_output_file(TexFile),
+	latex_output_file(TexBase),
+	latex_output_directory(TexDir),
+	atom_concat(TexDir,TexBase,TexFile),
 	tell(TexFile),
 	format('\\documentclass[11pt]{article}~n',[]),
 	format('\\usepackage{calc}~n',[]),

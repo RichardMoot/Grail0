@@ -16,6 +16,7 @@
 		  [unary_semantics/1,
 		  latex_output_format/1,
 		  latex_output_file/1,
+		  latex_output_directory/1,
 		  eta_long_proofs/1,
 		  hypo_scope/1,
 		  ignore_brackets/1,
@@ -60,7 +61,15 @@ latex_output_format(nd).
 % File to which the output modules will write tex output. The default name is
 % the one that is expected by the provided wrapper scripts.
 
-latex_output_file('somethingelse.tex').
+latex_output_file('proofs1.tex').
+
+
+
+% latex_output_directory(?Filename)
+% Directory to which to write the output files (eg<n>.tex and the above)
+
+latex_output_directory('./').
+
 
 
 
