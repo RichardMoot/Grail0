@@ -71,7 +71,7 @@ latex_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV) :-
 % NOTE: returns unexpected results when SolutionIndex > 9 !!
 % ---------------------------------------------------------------------
 texfile_name(FileName, SolutionIndex) :-
-	latex_output_directory(Dir),
+	'latex output directory'(Dir),
 	atom_codes(eg, EgCodes),
 	number_codes(SolutionIndex, IndexCodes),
 	append(EgCodes, IndexCodes, AtomCodes), atom_codes(ResultWithoutExtension, AtomCodes),
@@ -89,7 +89,7 @@ texfile_name(FileName, SolutionIndex) :-
 generate_latex_wrapper(NumberOfInputStatements) :-
 	telling(Stream),
 	latex_output_file(TexBase),
-	latex_output_directory(TexDir),
+	'latex output directory'(TexDir),
 	atom_concat(TexDir,TexBase,TexFile),
 	tell(TexFile),
 	format('\\documentclass[11pt]{article}~n',[]),

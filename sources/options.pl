@@ -65,13 +65,6 @@ latex_output_file('proofs1.tex').
 
 
 
-% latex_output_directory(?Filename)
-% Directory to which to write the output files (eg<n>.tex and the above)
-
-latex_output_directory('./').
-
-
-
 
 % eta_long_proofs(?Flag)
 % Setting this flag to 'yes' will cause the eta reduction of the
