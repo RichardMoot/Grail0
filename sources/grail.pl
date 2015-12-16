@@ -33,7 +33,7 @@ grail_help :-
 	format('~n',[]),
 	format('load_output_module(Name)               Use output_Name for output.~n',[]),
 	format('load_fragment(FileName)                Consult a grammar fragment.~n',[]),
-	format('set_output_module(Directory)           Write output files to given directory.~n',[]),
+	format('set_output_directory(Directory)        Write output files to given directory.~n',[]),
 	format('portray_examples                       Show example sentences of current fragment.~n',[]),
 	format('portray_lexicon                        Show words in current lexicon.~n',[]),
 	format('tokenize(String,ListOfWords)           Tokenize a string.~n',[]),
