@@ -87,22 +87,27 @@ latex_output(CurrentSolutionIndex,Meaning,Proof,Con,Subst,NV) :-
 % NOTE: returns unexpected results when SolutionIndex > 9 !!
 % ---------------------------------------------------------------------
 texfile_name(FileName, SolutionIndex) :-
+	'latex output directory'(Dir),
 	atom_codes(eg, EgCodes),
 	number_codes(SolutionIndex, IndexCodes),
 	append(EgCodes, IndexCodes, AtomCodes), atom_codes(ResultWithoutExtension, AtomCodes),
-	atom_concat(ResultWithoutExtension,'.tex',FileName).
+	atom_concat(ResultWithoutExtension,'.tex',BaseName),
+	atom_concat(Dir,BaseName,FileName).
 
 
 
 % ---------------------------------------------------------------------
 % generate_latex_wrapper(+NumberOfIncludeStatements)
 %
-% Generates the file 'proofs1.tex' containing NumberOfIncludeStatements
+% Generates the file (default 'proofs1.tex') containing NumberOfIncludeStatements
 % \input statements for eg?.tex files.
 % ---------------------------------------------------------------------
 generate_latex_wrapper(NumberOfIncludeStatements) :-
 	telling(Stream),
-	tell('proofs1.tex'),
+	latex_output_file(TexBase),
+	'latex output directory'(TexDir),
+	atom_concat(TexDir,TexBase,TexFile),
+	tell(TexFile),
 	format('\\documentclass[11pt]{article}~n',[]),
 	format('\\usepackage{calc}~n',[]),
 	format('\\usepackage{ifthen}~n',[]),

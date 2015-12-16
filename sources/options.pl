@@ -15,6 +15,8 @@
 :- module(options,
 		  [unary_semantics/1,
 		  latex_output_format/1,
+		  latex_output_file/1,
+		  latex_output_directory/1,
 		  eta_long_proofs/1,
 		  hypo_scope/1,
 		  ignore_brackets/1,
@@ -52,6 +54,15 @@ unary_semantics(inactive).
 % version does not support sequent output
 
 latex_output_format(nd).
+
+
+
+% latex_output_file(?Filename)
+% File to which the output modules will write tex output. The default name is
+% the one that is expected by the provided wrapper scripts.
+
+latex_output_file('proofs1.tex').
+
 
 
 

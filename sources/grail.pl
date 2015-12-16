@@ -33,6 +33,7 @@ grail_help :-
 	format('~n',[]),
 	format('load_output_module(Name)               Use output_Name for output.~n',[]),
 	format('load_fragment(FileName)                Consult a grammar fragment.~n',[]),
+	format('set_output_directory(Directory)        Write output files to given directory.~n',[]),
 	format('portray_examples                       Show example sentences of current fragment.~n',[]),
 	format('portray_lexicon                        Show words in current lexicon.~n',[]),
 	format('tokenize(String,ListOfWords)           Tokenize a string.~n',[]),
@@ -83,6 +84,19 @@ load_output_module(NameSuffix) :-
 	use_module(ModuleName),
 	retractall('active output module'(_)),
 	assert('active output module'(ModuleName)).
+
+
+% ---------------------------------------------------------------------
+% set_output_directory(+D)
+%
+% Write output files to directory D
+% ---------------------------------------------------------------------
+
+set_output_directory(Dir) :-
+	retractall('latex output directory'(_)),
+	atom_concat(Dir,'/',Dir2),
+	assert('latex output directory'(Dir2)).
+
 
 % ---------------------------------------------------------------------
 % generate_output(+ResultList)
@@ -176,6 +190,7 @@ tex_syn(ListOfSyn, Goal) :-
 	generate_output(Results).
        
 start :-
+	assert('latex output directory'('./')),
 	load_output_module(null),
 	format('~n~nWelcome to Grail!~nType \'grail_help.\' for toplevel predicates.~n~n',[]).
 
